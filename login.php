@@ -16,7 +16,9 @@ if (isset($_POST['login'])) {
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 if ($row['username'] == $username && $row['password'] == $password) {
-                    
+                    $_SESSION['user_id'] = $row['id'];
+                    $_SESSION['user_name'] = $row['name'];
+                    $_SESSION['user_surname'] = $row['surname'];
                     $_SESSION['username'] = $username;
                     $_SESSION['user_type'] = $styled_radio;
 

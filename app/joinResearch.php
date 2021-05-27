@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,7 +61,7 @@
                         <div><img src="files/images/users/2.jpg" alt="user-img" class="img-circle"></div>
                         <div class="dropdown">
                             <a href="javascript:void(0)" class="u-dropdown link hide-menu" role="button"
-                                aria-haspopup="true" aria-expanded="false">Samet Sarıal</a>
+                                aria-haspopup="true" aria-expanded="false"><?php echo(ucfirst($_SESSION['user_name']).' '.ucfirst($_SESSION['user_surname'])) ?></a>
                         </div>
                     </div>
                 </div>
@@ -69,8 +73,7 @@
                                     <span class="badge badge-pill badge-cyan ml-auto">4</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="offeredCourses.php">Offered Courses</a></li>
-                                <li><a href="takenCourses.php">Taken Courses</a></li>
-                                <li><a href="addCourse.php">Add/Drop a Course</a></li>
+                                
                                 <li><a href="courseFiles.php">Files</a></li>
                             </ul>
                         </li>

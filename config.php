@@ -3,4 +3,5 @@
     $database = 'web';
     $user = 'root';
     $password = '';
+
 ?>
