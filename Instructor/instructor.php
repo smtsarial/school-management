@@ -55,7 +55,7 @@ session_start();
                 <div class="user-profile">
                     <div class="user-pro-body">
                         <div><img src="../app/files/images/users/1.jpg" alt="user-img" class="img-circle"></div>
-                        <a href="javascript:void(0)" class="u-dropdown link hide-menu" role="button" aria-haspopup="true" aria-expanded="false">Erdal YAPRAK </a>
+                        <a href="javascript:void(0)" class="u-dropdown link hide-menu" role="button" aria-haspopup="true" aria-expanded="false"><?php echo (ucfirst($_SESSION['user_name']) . ' ' . ucfirst($_SESSION['user_surname'])) ?> </a>
                     </div>
                 </div>
 
@@ -79,7 +79,7 @@ session_start();
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="../app/instructor-pages/Research-group-page.php">Research Group
                                         Informations</a></li>
-                                <li><a href="../app/instructor-pages/Approve-Reject Groups.php">Approve/Reject
+                                <li><a href="../app/instructor-pages/approveReject.php">Approve/Reject
                                         Groups</a></li>
                             </ul>
                         </li>
@@ -116,30 +116,39 @@ session_start();
                                         <th class="text-center">Course Code</th>
                                         <th>Course Name</th>
                                         <th>Course Type</th>
-                                        <th>Number of Students</th>
+                                        <th>Date</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="text-center">11111</td>
-                                        <td class="txt-oflo">Web Programming Project 1</td>
-                                        <td class="txt-oflo">Mandatory</td>
-                                        <td class="txt-oflo">8</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">22222</td>
-                                        <td class="txt-oflo">Web Programming Project 2</td>
-                                        <td class="txt-oflo">Mandatory</td>
-                                        <td class="txt-oflo">7</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">33333</td>
-                                        <td class="txt-oflo">Web Programming Project 3</td>
-                                        <td class="txt-oflo">Elective</td>
-                                        <td class="txt-oflo">5</td>
-                                    </tr>
-                                    </tr>
+                                <?php
+                                            require_once('../config.php');
+
+                                            $conn = mysqli_connect($server, $user, $password, $database);
+
+                                            if (!$conn) {
+                                                die("Connection failed " . mysqli_connect_error());
+                                            }
+
+                                            $sql = "SELECT * FROM `courses` WHERE instructor_id =" . $_SESSION['user_id'];
+                                            $result = mysqli_query($conn, $sql);
+
+                                            if (mysqli_num_rows($result) > 0) {
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    
+                                                    echo('<tr>
+                                                    <td class="text-center">' . $row['id'] . '</td>
+                                                    <td class="txt-oflo">' . ucfirst($row['course_name']) . '</td>
+                                                    <td class="txt-oflo">' . ucfirst($row['type']) . '</td>
+                                                    <td class="txt-oflo">' . $row['day'] .' | '.$row['start_time'].'-'.$row['stop_time']. '</td>
+                                                </tr>');
+                                                }
+                                            } else {
+                                                echo "NO ACTIVE INSTRUCTOR FOUND";
+                                            }
+                                            mysqli_close($conn);
+                                            ?>
+                                    
                                 </tbody>
                             </table>
                         </div>

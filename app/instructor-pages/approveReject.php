@@ -45,7 +45,7 @@ session_start();
                         </li>
                     </ul>
                     <ul class="navbar-nav my-lg-0">
-                        <li class="nav-item right-side-toggle"> <a class="nav-link" href="../../login.php"><i class="fa fa-power-off"></i></a></li>
+                        <li class="nav-item right-side-toggle"> <a class="nav-link  waves-effect waves-light" href="../../login.php"><i class="fa fa-power-off"></i></a></li>
                     </ul>
                 </div>
             </nav>
@@ -72,13 +72,17 @@ session_start();
                                 <li><a href="../instructor-pages/Course-1.php">Courses</a></li>
                             </ul>
                         </li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa fa-search"></i><span class="hide-menu">Research Group Page
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa fa-search"></i><span class="hide-menu">Research Group
+                                    Page
                                 </span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="../instructor-pages/Research-group-page.php">Research Group Informations</a></li>
-                                <li><a href="../instructor-pages/approveReject.php">Approve/Reject Groups</a></li>
+                                <li><a href="../instructor-pages/Research-group-page.php">Research Group
+                                        Informations</a></li>
+                                <li><a href="../instructor-pages/approveReject.php">Approve/Reject Groups</a>
+                                </li>
 
                             </ul>
+                        </li>
                 </nav>
             </div>
         </aside>
@@ -90,86 +94,32 @@ session_start();
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <?php
-                require_once('../../config.php');
-                $conn = mysqli_connect($server, $user, $password, $database);
-                if (isset($_POST['create'])) {
-                    $name = $_POST['name'];
-                    $area = $_POST['area'];
-
-                    if (!$conn) {
-                        die("Connection failed " . mysqli_connect_error());
-                    } else {
-
-                        $sql = ("INSERT INTO research_groups (research_name, research_area, instructor_id) VALUES ('".$name."','".$area."', '".$_SESSION['user_id']."')");
-                        if ($conn->query($sql) === TRUE) {
-                            echo '<div class="alert alert-success col-md-2" role="alert">Research Group created successfully !!</div>';
-                        } else {
-                            echo '<div class="alert alert-warning" role="alert">You Already Created One</div>';
-                        }
-                    }
-                    $conn->close();
-                }
-                ?>
-                <div class="column">
-                    <div class="col-4">
+                <div class="row">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Create Research Groups</h4>
-                                <div class="table-responsive m-t-40">
-                                    <form method="post" class="form-horizontal form-material" id="loginform" action="Research-group-page.php">
-                                        <form>
-                                            <div class="form-group">
-                                                <div class="col-xs-12">
-                                                    <input class="form-control" type="text" placeholder="Research Name" name="name">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-xs-12">
-                                                    <input class="form-control" type="text" placeholder="Research Area" name="area">
-                                                </div>
-                                            </div>
-
-
-                                            <div class="form-group text-center p-b-20">
-                                                <div class="col-xs-12">
-                                                    <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit" name="create">Create New Research Group</button>
-                                                </div>
-                                            </div>
-                                        </form>
-
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Research Groups</h4>
-                                <div class="table-responsive m-t-40">
-                                    <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                <h4 class="card-title">Course List</h4>
+                                <div class="table-responsive">
+                                    <table id="demo-foo-addrow" class="table m-t-30 table-hover contact-list" data-page-size="10">
                                         <thead>
                                             <tr>
+
                                                 <th>Student ID</th>
-                                                <th>Students Name</th>
-                                                <th>Taken Course</th>
-                                                <th>GPA</th>
+                                                <th>Student Name</th>
+                                                <th>Added File</th>
+                                                <th>Note</th>
+                                                <th>Reject</th>
+                                                <th>Approve</th>
                                             </tr>
                                         </thead>
-
                                         <tbody>
-
                                             <?php
                                             require_once('../../config.php');
                                             $conn = mysqli_connect($server, $user, $password, $database);
                                             if (!$conn) {
                                                 die("Connection failed " . mysqli_connect_error());
                                             } else {
-                                                $sql = "SELECT * FROM `reserach_group_members` INNER JOIN student ON student_id=student.id INNER JOIN register_course ON register_course.student_id=student.id INNER JOIN courses ON courses.id=register_course.course_id WHERE reserach_group_members.research_id=" . $_SESSION['user_id'];
+                                                $sql = "SELECT * FROM `research_requests` INNER JOIN student ON student_id=student.id WHERE research_requests.instructor_id=" . $_SESSION['user_id'];
                                                 $result = mysqli_query($conn, $sql);
 
                                                 if (mysqli_num_rows($result) > 0) {
@@ -177,17 +127,79 @@ session_start();
                                                         echo ('<tr>
                                                         <td>' . $row['student_id'] . '</td>
                                                         <td>' . ucfirst($row['name']) . ' ' . ucfirst($row['surname']) . '</td>
-                                                        <td>' . ucfirst($row['course_name']) . '</td>
-                                                        <td>' . ucfirst($row['gpa']) . '</td>
+                                                        <td><a href="../uploads/' . $row['file'] . '" target="_blank" download>' . $row['file'] . '</a></td>
+                                                        <td>' . $row['note'] . '</td>
+                                                        
+                                                            <td><form method="post" id="reject" action="approveReject.php">
+                                                            <button class="btn btn-danger" value="' . $row['student_id'] . '" type="submit" name="reject">Reject Request</button>
+                                                            </form></td>
+
+
+                                                            <td><form method="post" id="approve" action="approveReject.php">
+                                                            <button class="btn btn-success" type="submit" value="' . $row['student_id'] . '" name="approve">Approve Request</button>
+                                                            </form></td>
+                                                        
                                                     </tr>');
                                                     }
                                                 } else {
-                                                    echo "NO ACTIVE INSTRUCTOR FOUND";
+                                                    echo "NO ACTIVE REQUEST FOUND";
                                                 }
                                             }
                                             ?>
+
                                         </tbody>
                                     </table>
+                                    <?php
+                                    include('../../config.php');
+
+                                    if (isset($_POST['approve'])) {
+                                        
+                                        $conn = mysqli_connect($server, $user, $password, $database);
+
+                                        if (!$conn) {
+                                            die("Connection failed " . mysqli_connect_error());
+                                        } else {
+                                            $sql = ("INSERT INTO `reserach_group_members` (`research_id`, `student_id`) VALUES (".$_SESSION['user_id'].", ".$_POST['approve'].")");
+                                            if ($conn->query($sql) === TRUE) {
+                                                deleteFromList($_POST['approve'],$_SESSION['user_id']);
+                                                echo '<div class="alert alert-success col-md-2" role="alert">Student Request Approved successfully !!</div>';
+                                            } else {
+                                                echo '<div class="alert alert-warning" role="alert">' . $conn->error . '</div>';
+                                            }
+                                        }
+                                    }
+                                    if (isset($_POST['reject'])) {
+                                        $conn = mysqli_connect($server, $user, $password, $database);
+
+                                        if (!$conn) {
+                                            die("Connection failed " . mysqli_connect_error());
+                                        } else {
+                                            $sql = ("DELETE FROM `research_requests` WHERE student_id=".$_POST['reject']." AND instructor_id=".$_SESSION['user_id']);
+                                            if ($conn->query($sql) === TRUE) {
+                                                echo '<div class="alert alert-success col-md-2" role="alert">Student Request Rejected successfully !!</div>';
+                                            } else {
+                                                echo '<div class="alert alert-warning" role="alert">' . $conn->error . '</div>';
+                                            }
+                                        }
+                                    }
+                                    function deleteFromList($student_id,$instructor_id){
+                                        include('../../config.php');
+                                        $conn = mysqli_connect($server, $user, $password, $database);
+
+                                        if (!$conn) {
+                                            die("Connection failed " . mysqli_connect_error());
+                                        } else {
+                                            $sql = ("DELETE FROM `research_requests` WHERE student_id=".$student_id." AND instructor_id=".$instructor_id);
+                                            if ($conn->query($sql) === TRUE) {
+                                                echo '<div class="alert alert-success col-md-2" role="alert">Student Request hass been remove from table successfully !!</div>';
+                                            } else {
+                                                echo '<div class="alert alert-warning" role="alert">' . $conn->error . '</div>';
+                                            }
+                                        }
+                                    }
+                                    ?>
+
+
 
 
                                 </div>
@@ -196,21 +208,7 @@ session_start();
                     </div>
                 </div>
             </div>
-
         </div>
-
-
-        <style>
-            .column {
-                display: flex;
-            }
-        </style>
-
-
-
-
-
-
         <!-- ============================================================== -->
         <!-- All Jquery -->
         <!-- ============================================================== -->

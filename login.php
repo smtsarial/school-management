@@ -7,7 +7,7 @@ if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $styled_radio = $_POST['styled_radio'];
-    
+
     if (!$conn) {
         die("Connection failed " . mysqli_connect_error());
     } else {
@@ -25,6 +25,10 @@ if (isset($_POST['login'])) {
                     if ($styled_radio == "student") {
                         header("Location:Student/index.php");
                     } else if ($styled_radio == "instructor") {
+                        $_SESSION['user_id'] = $row['id'];
+                        $_SESSION['user_name'] = $row['instructor_name'];
+                        $_SESSION['user_surname'] = $row['instructor_surname'];
+                        $_SESSION['username'] = $username;
                         header("Location:Instructor/instructor.php");
                     } else if ($styled_radio == "secretary") {
                         header("Location:Secretary/secretary.php");
@@ -59,20 +63,20 @@ if (isset($_POST['login'])) {
     <link href="app/files/css/style.min.css" rel="stylesheet">
 </head>
 <style>
-.alert-success {
-    color: #00654c;
-    background-color: #ccf3e9;
-    border-color: #b8eee0;
-    position: fixed;
-    right: 0;
-    bottom: 0;
-}
-.alert-warning {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-}
+    .alert-success {
+        color: #00654c;
+        background-color: #ccf3e9;
+        border-color: #b8eee0;
+        position: fixed;
+        right: 0;
+        bottom: 0;
+    }
 
+    .alert-warning {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+    }
 </style>
 
 <body class="skin-default-dark card-no-border">

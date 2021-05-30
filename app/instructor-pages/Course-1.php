@@ -71,13 +71,14 @@ session_start();
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="../instructor-pages/Course-1.php">Courses</a></li>
 
+
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa fa-search"></i><span class="hide-menu">Research Group Page
                                 </span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="../instructor-pages/Research-group-page.php">Research Group Informations</a></li>
-                                <li><a href="../instructor-pages/Approve-Reject Groups.php">Approve/Reject Groups</a></li>
+                                <li><a href="../instructor-pages/approveReject.php">Approve/Reject Groups</a></li>
 
                             </ul>
                 </nav>
@@ -102,6 +103,11 @@ session_start();
                 text-align: center;
                 margin: auto;
             }
+
+            .formeleman {
+                padding-left: 25px;
+                padding-right: 25px;
+            }
         </style>
         <div class="page-wrapper">
             <div class="container-fluid">
@@ -114,46 +120,49 @@ session_start();
                 <div class="column">
                     <div class="col-2">
                         <div class="card">
-                            <form method="post" class="form-horizontal form-material" id="joinrequest" action="Course-1.php" enctype="multipart/form-data">
-                                <h3 class="box-title m-b-20">Available Courses</h3>
-                                <div class="form-group">
-                                    <div class="col-xs-12">
-                                        <select class="select2 form-control custom-select" name="course_id" style="color:black">
-                                            <option value="">--Select Course--</option>
-                                            <?php
-                                            require_once('../../config.php');
+                            <div class="formeleman">
+                                <form method="post" class="form-horizontal form-material" id="joinrequest" action="Course-1.php" enctype="multipart/form-data">
+                                    <h3 class="box-title m-b-20">Available Courses</h3>
+                                    <div class="form-group">
 
-                                            $conn = mysqli_connect($server, $user, $password, $database);
+                                        <div class="col-xs-12">
+                                            <select class="select2 form-control custom-select" name="course_id" style="color:black">
+                                                <option value="">--Select Course--</option>
+                                                <?php
+                                                require_once('../../config.php');
 
-                                            if (!$conn) {
-                                                die("Connection failed " . mysqli_connect_error());
-                                            }
+                                                $conn = mysqli_connect($server, $user, $password, $database);
 
-                                            $sql = "SELECT * FROM `courses` WHERE instructor_id =" . $_SESSION['user_id'];
-                                            $result = mysqli_query($conn, $sql);
-
-                                            if (mysqli_num_rows($result) > 0) {
-                                                while ($row = mysqli_fetch_assoc($result)) {
-                                                    echo '<option value="' . $row['id'] . '">' . $row['course_name'] . '</option>';
+                                                if (!$conn) {
+                                                    die("Connection failed " . mysqli_connect_error());
                                                 }
-                                            } else {
-                                                echo "NO ACTIVE INSTRUCTOR FOUND";
-                                            }
-                                            mysqli_close($conn);
-                                            ?>
 
-                                        </select>
+                                                $sql = "SELECT * FROM `courses` WHERE instructor_id =" . $_SESSION['user_id'];
+                                                $result = mysqli_query($conn, $sql);
+
+                                                if (mysqli_num_rows($result) > 0) {
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        echo '<option value="' . $row['id'] . '">' . $row['course_name'] . '</option>';
+                                                    }
+                                                } else {
+                                                    echo "NO ACTIVE INSTRUCTOR FOUND";
+                                                }
+                                                mysqli_close($conn);
+                                                ?>
+
+                                            </select>
+                                        </div>
+
                                     </div>
-                                </div>
-                                <div class="form-group text-center p-b-20">
-                                    <div class="col-xs-12">
-                                        <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit" name="request">Select Course</button>
+                                    <div class="form-group text-center p-b-20">
+                                        <div class="col-xs-12">
+                                            <button class="btn btn-block btn-info btn-rounded" type="submit" name="request">Select Course</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
-
 
 
 
@@ -174,6 +183,7 @@ session_start();
                                                 <th>Student ID</th>
                                                 <th>Course Time</th>
                                                 <th>Course Type</th>
+                                                <th>GPA</th>
                                             </tr>
                                         </thead>
 
@@ -198,7 +208,12 @@ session_start();
                                                             <td>' . ucfirst($row['name']) . ' ' . ucfirst($row['surname']) . '</td>
                                                             <td>' . ucfirst($row['student_id']) . '</td>
                                                             <td>' . ucfirst($row['day']) . ' | ' . ucfirst($row['start_time']) . '-' . ucfirst($row['stop_time']) . '</td>
-                                                            <td>' . ucfirst($row['type']) . '</td></tr>');
+                                                            <td>' . ucfirst($row['type']) . '</td>
+                                                            <td><form method="post" id="gpa" action="Course-1.php"> <div class="gpa">
+                                                            <input class="form-control" type="number" min="0" max="100" name="gpa1" placeholder="' . ucfirst($row['gpa']) . '">
+                                                                <button class="btn btn-block btn-success" type="submit" value="' . $row['student_id'] . '" name="gpa">Update GPA</button></div>
+                                                            </form></td>
+                                                            </tr>');
                                                         }
                                                     } else {
                                                         echo "NO ACTIVE INSTRUCTOR FOUND";
@@ -211,6 +226,26 @@ session_start();
 
                                         </tbody>
                                     </table>
+                                    <?php
+                                    if (isset($_POST['gpa'])) {
+
+                                        if (!$conn) {
+                                            die("Connection failed " . mysqli_connect_error());
+                                        } else {
+                                            $sql = "UPDATE register_course SET gpa = '" . $_POST['gpa1'] . "' WHERE course_id = " . $_SESSION['course_id'] . " AND student_id = " . $_POST['gpa'] . "";
+                                            $result = mysqli_query($conn, $sql);
+                                            if ($conn->query($sql) === TRUE) {
+                                                echo '<div class="alert alert-success col-md-2" role="alert">GPA updated successfully !!</div>';
+                                            } else {
+                                                echo '<div class="alert alert-warning" role="alert">' . $conn->error . '</div>';
+                                            }
+
+                                            mysqli_close($conn);
+                                        }
+                                    }
+
+                                    ?>
+
                                 </div>
                                 <?php
                                 require_once('../../config.php');
@@ -232,19 +267,18 @@ session_start();
                                             // Upload file to server
                                             if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)) {
                                                 // Insert image file name into database
-                                                $insert = $conn->query("INSERT INTO `course_files` (`file_name`, `courseFiles_id`) VALUES ('".$fileName."', '".$_SESSION['course_id']."');");
+                                                $insert = $conn->query("INSERT INTO `course_files` (`file_name`, `courseFiles_id`) VALUES ('" . $fileName . "', '" . $_SESSION['course_id'] . "');");
                                                 if ($insert) {
                                                     echo '<div class="alert alert-success col-md-2" role="alert">The file ' . $fileName . ' has been uploaded successfully.</div>';
                                                 } else {
-                                                    echo '<div class="alert alert-warning col-md-2" role="alert">File upload '.$course_id.'failed, please try again.</div>';
+                                                    echo '<div class="alert alert-warning col-md-2" role="alert">File upload ' . $course_id . 'failed, please try again.</div>';
                                                 }
                                             } else {
                                                 echo '<div class="alert alert-warning col-md-2" role="alert">Sorry, there was an error uploading your file.</div>';
                                             }
                                         } else {
-                                            
-                                                echo '<div class="alert alert-warning" role="alert">File didnt add !!</div>';
-                                            
+
+                                            echo '<div class="alert alert-warning" role="alert">File didnt add !!</div>';
                                         }
                                     }
                                 }
@@ -283,6 +317,10 @@ session_start();
 
             p {
                 text-align: center;
+            }
+
+            .gpa {
+                display: flex;
             }
         </style>
 
