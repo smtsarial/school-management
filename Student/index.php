@@ -54,7 +54,7 @@ session_start();
                 <div class="user-profile">
                     <div class="user-pro-body">
                         <div><img src="../app/files/images/users/2.jpg" alt="user-img" class="img-circle"></div>
-                        <a href="javascript:void(0)" class="u-dropdown link hide-menu" role="button" aria-haspopup="true" aria-expanded="false"><?php echo(ucfirst($_SESSION['user_name']).' '.ucfirst($_SESSION['user_surname'])) ?></a>
+                        <a href="javascript:void(0)" class="u-dropdown link hide-menu" role="button" aria-haspopup="true" aria-expanded="false"><?php echo (ucfirst($_SESSION['user_name']) . ' ' . ucfirst($_SESSION['user_surname'])) ?></a>
                     </div>
                 </div>
 
@@ -65,7 +65,7 @@ session_start();
                                     <span class="badge badge-pill badge-cyan ml-auto">4</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="../app/offeredCourses.php">Offered Courses</a></li>
-                                
+                                <li><a href="index.php">Taken Courses</a></li>
                                 <li><a href="../app/courseFiles.php">Files</a></li>
                             </ul>
                         </li>
@@ -79,6 +79,19 @@ session_start();
                 </nav>
             </div>
         </aside>
+        <style>.alert-success {
+    color: #00654c;
+    background-color: #ccf3e9;
+    border-color: #b8eee0;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
+.alert-warning {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}</style>
         <div class="page-wrapper">
             <div class="container-fluid">
                 <div class="row page-titles">
@@ -99,19 +112,49 @@ session_start();
                                                 <th>Course ID</th>
                                                 <th>Course Name</a></th>
                                                 <th>Instructor Name</th>
-                                                <th>Start date</th>
+                                                <th>Course Type</th>
+                                                <th>Start Time</th>
+                                                <th>Stop Time</th>
+                                                <th>Week Day</th>
                                                 <th>Drop</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>12345</td>
-                                                <td><a href="courseFiles.php">Database and Web</a></td>
-                                                <td>Samet Sarial</td>
-                                                <td>2011/04/25</td>
-                                                <td><form method="POST"><button type="submit" class="btn btn-rounded btn-success" name="register" value="">Register</button></form></td>
-                                            </tr>
-                                            
+
+                                            <?php
+                                            require_once('../config.php');
+                                            include('../database/student.php');
+                                            if (isset($_POST['drop'])) {
+                                                dropCourse($_SESSION['user_id'],$_POST['drop']);
+                                            }
+                                            $conn = mysqli_connect($server, $user, $password, $database);
+
+                                            if (!$conn) {
+                                                die("Connection failed " . mysqli_connect_error());
+                                            }
+
+                                            $sql = "SELECT course_name,course_id,type,instructor_name,instructor_surname,day,start_time,stop_time FROM register_course INNER JOIN courses ON courses.id = course_id INNER JOIN instructor ON instructor.id=instructor_id WHERE student_id=" . $_SESSION['user_id'];
+                                            $result = mysqli_query($conn, $sql);
+
+                                            if (mysqli_num_rows($result) > 0) {
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    echo "<tr>" .
+                                                        "<td>" . ucfirst($row['course_id']) . "</td>" .
+                                                        "<td>" . ucfirst($row['course_name']) . "</td>" .
+                                                        "<td>" . ucfirst($row['instructor_name']) . "</td>" .
+                                                        "<td>" . ucfirst($row['type']) . "</td>" .
+                                                        "<td>" . ucfirst($row['start_time']) . "</td>" .
+                                                        "<td>" . ucfirst($row['stop_time']) . "</td>" .
+                                                        "<td>" . ucfirst($row['day']) . "</td>" .
+                                                        "<td><form method='POST'><button type='drop' class='btn btn-rounded btn-success' name='drop' value='" . $row['course_id'] . "'>Drop Course</button></form></td>" .
+                                                        "</tr>";
+                                                }
+                                                echo "</table>";
+                                            } else {
+                                                echo "NO REGISTERED COURSE FOUND";
+                                            }
+                                            mysqli_close($conn);
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>

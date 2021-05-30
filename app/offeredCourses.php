@@ -68,7 +68,8 @@ session_start();
                                     Page
                                     <span class="badge badge-pill badge-cyan ml-auto">4</span></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="offeredCourses.php">Offered Courses</a></li>
+                                 <li><a href="offeredCourses.php">Offered Courses</a></li>
+                                <li><a href="../Student/index.php">Taken Courses</a></li>
                                 
                                 <li><a href="courseFiles.php">Files</a></li>
                             </ul>
@@ -140,7 +141,6 @@ session_start();
                                     '<h3 class="box-title m-b-0">'.ucfirst($row['course_name']) .' -> '. $row['id']. '</h3><small>' .ucfirst($row['instructor_name']). ' '.ucfirst($row['instructor_surname']) .'  '. '</small>' .
                                     '<span class="badge badge-pill badge-danger">' . ucfirst($row['type']) . '</span>' .
                                     '<p>' . $row['course_description'] .
-                                    $_SESSION['user_id'].
                                     ' </p>' .
                                     '<form method="POST"><button type="submit" class="btn btn-rounded btn-success" name="register" value="'.$row['id'].'">Register</button> </form>'.
                                     ' </div>' .

@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php
+session_start();
+?>
+
+!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -56,7 +60,7 @@
                     <div class="user-pro-body">
                         <div><img src="../app/files/images/users/3.jpg" alt="user-img" class="img-circle"></div>
                         <a href="javascript:void(0)" class="u-dropdown link hide-menu" role="button"
-                            aria-haspopup="true" aria-expanded="false">Emre ERKAN </a>
+                            aria-haspopup="true" aria-expanded="false"><?php echo (ucfirst($_SESSION['user_name']) . ' ' . ucfirst($_SESSION['user_surname'])) ?></a>
                     </div>
                 </div>
 
@@ -69,7 +73,6 @@
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="../app/secretary-pages/create-delete-course.php">Create & Delete a
                                         Course</a></li>
-                                <li><a href="../app/secretary-pages/all-courses.php">All Courses</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -97,34 +100,31 @@
                             </div>
                         </div>
 
+                     
+
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
-
+                                <tr>
+                                   
+                                </tr>       
                                 </thead>
                                 <tbody>
+
+                                     <tr>
+                                        <td>ID :</td>
+                                        <td><?php echo (ucfirst($_SESSION['user_id'])) ?></td>
+                                    </tr>
+                                
                                     <tr>
                                         <td>NAME :</td>
-                                        <td>Emre</td>
+                                        <td><?php echo (ucfirst($_SESSION['user_name'])) ?></td>
 
                                     </tr>
                                     <tr>
                                         <td>SURNAME :</td>
-                                        <td>Erkan</td>
+                                        <td><?php echo (ucfirst($_SESSION['user_surname'])) ?></td>
                                     </tr>
-                                    <tr>
-                                        <td>ID :</td>
-                                        <td>1111111</td>
-                                    </tr>
-                                    <tr>
-                                        <td>EMAIL :</td>
-                                        <td>asfdsgsdgn@st.medipol.edu.tr</td>
-                                    </tr>
-                                    <tr>
-                                        <td>PHONE :</td>
-                                        <td>0564215446</td>
-                                    </tr>
-
                                 </tbody>
                             </table>
                         </div>

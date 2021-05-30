@@ -1,6 +1,6 @@
 <?php
     $server = 'localhost';
-    $database = 'web';
+    $database = 'web1';
     $user = 'root';
     $password = '';
 

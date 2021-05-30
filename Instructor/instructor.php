@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,11 +36,8 @@
 
                 <div class="navbar-collapse">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"> <a class="nav-link nav-toggler d-block d-sm-none waves-effect waves-dark"
-                                href="javascript:void(0)"><i class="fa fa-bars"></i></a> </li>
-                        <li class="nav-item"> <a
-                                class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark"
-                                href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
+                        <li class="nav-item"> <a class="nav-link nav-toggler d-block d-sm-none waves-effect waves-dark" href="javascript:void(0)"><i class="fa fa-bars"></i></a> </li>
+                        <li class="nav-item"> <a class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark" href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
                         <li class="nav-item">
                             <form class="app-search d-none d-md-block d-lg-block">
                                 <input type="text" class="form-control" placeholder="Search & enter">
@@ -44,8 +45,7 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav my-lg-0">
-                        <li class="nav-item right-side-toggle"> <a class="nav-link  waves-effect waves-light"
-                                href="../login.php"><i class="fa fa-power-off"></i></a></li>
+                        <li class="nav-item right-side-toggle"> <a class="nav-link  waves-effect waves-light" href="../login.php"><i class="fa fa-power-off"></i></a></li>
                     </ul>
                 </div>
             </nav>
@@ -55,25 +55,25 @@
                 <div class="user-profile">
                     <div class="user-pro-body">
                         <div><img src="../app/files/images/users/1.jpg" alt="user-img" class="img-circle"></div>
-                        <a href="javascript:void(0)" class="u-dropdown link hide-menu" role="button"
-                            aria-haspopup="true" aria-expanded="false">Erdal YAPRAK </a>
+                        <a href="javascript:void(0)" class="u-dropdown link hide-menu" role="button" aria-haspopup="true" aria-expanded="false">Erdal YAPRAK </a>
                     </div>
                 </div>
 
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"
-                                aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Course
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Course
                                     Page
                                     <span class="badge badge-pill badge-cyan ml-auto">3</span></span></a>
+                            
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="../app/instructor-pages/Course-1.php">Web Programming Project 1</a></li>
-                                <li><a href="../app/instructor-pages/Course-2.php">Web Programming Project 2</a></li>
-                                <li><a href="../app/instructor-pages/Course-3.php">Web Programming Project 3</a></li>
+                                <li><a href="../app/instructor-pages/Course-1.php">Courses</a></li>
+                                
                             </ul>
+                               
+
+                          
                         </li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"
-                                aria-expanded="false"><i class="fa fa-search"></i><span class="hide-menu">Research Group
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa fa-search"></i><span class="hide-menu">Research Group
                                     Page
                                 </span></a>
                             <ul aria-expanded="false" class="collapse">
@@ -154,15 +154,9 @@
     <!-- ============================================================== -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Bootstrap popper Core JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!--Menu sidebar -->
     <script src="../app/files/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->

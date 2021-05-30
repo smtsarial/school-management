@@ -11,11 +11,20 @@ if (isset($_POST['create'])) {
     if (!$conn) {
         die("Connection failed " . mysqli_connect_error());
     } else {
-        $sql = ("INSERT INTO `" . $styled_radio . "` (`username`, `password`, `name`, `surname`) VALUES ('" . $username . "', '" . $password . "', '" . $name . "', '" . $surname . "')");
-        if ($conn->query($sql) === TRUE) {
-            echo '<div class="alert alert-success col-md-2" role="alert">Account created successfully !!</div>';
+        if ($styled_radio == 'instructor') {
+            $sql = ("INSERT INTO " . $styled_radio . " (username, password, instructor_name, instructor_surname) VALUES ('" . $username . "', '" . $password . "', '" . $name . "', '" . $surname . "')");
+            if ($conn->query($sql) === TRUE) {
+                echo '<div class="alert alert-success col-md-2" role="alert">Account created successfully !!</div>';
+            } else {
+                echo '<div class="alert alert-warning" role="alert">' . $conn->error . '</div>';
+            }
         } else {
-            echo '<div class="alert alert-warning" role="alert">'. $conn->error .'</div>';
+            $sql = ("INSERT INTO " . $styled_radio . " (username, password, name, surname) VALUES ('" . $username . "', '" . $password . "', '" . $name . "', '" . $surname . "')");
+            if ($conn->query($sql) === TRUE) {
+                echo '<div class="alert alert-success col-md-2" role="alert">Account created successfully !!</div>';
+            } else {
+                echo '<div class="alert alert-warning" role="alert">' . $conn->error . '</div>';
+            }
         }
     }
     $conn->close();

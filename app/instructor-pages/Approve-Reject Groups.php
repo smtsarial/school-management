@@ -71,9 +71,7 @@
                                     Page
                                     <span class="badge badge-pill badge-cyan ml-auto">3</span></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="../instructor-pages/Course-1.php">Web Programming Project 1</a></li>
-                                <li><a href="../instructor-pages/Course-2.php">Web Programming Project 2</a></li>
-                                <li><a href="../instructor-pages/Course-3.php">Web Programming Project 3</a></li>
+                            <li><a href="../instructor-pages/Course-1.php">Courses</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"

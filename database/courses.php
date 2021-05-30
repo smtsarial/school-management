@@ -24,4 +24,20 @@ function offeredCourses()
     }
 }
 
+function deleteCourse($course_id)
+{
+    include('../../config.php');
+    $conn = mysqli_connect($server, $user, $password, $database);
+    if (!$conn) {
+        die("Connection failed " . mysqli_connect_error());
+    } else {
+        $sql = "DELETE FROM courses WHERE id = ".$course_id;
+        if ($conn->query($sql) === TRUE) {
+            echo '<div class="alert alert-success col-md-2" role="alert">Course ID='.$course_id.' Deleted successfully !!</div>';
+        } else {
+            echo '<div class="alert alert-warning" role="alert">'. $conn->error .'</div>';
+        }
+    }
+}
+
 ?>
