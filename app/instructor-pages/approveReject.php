@@ -87,6 +87,24 @@ session_start();
             </div>
         </aside>
         <div class="page-wrapper">
+        <style>
+                .alert-success {
+                    color: #00654c;
+                    background-color: #ccf3e9;
+                    border-color: #b8eee0;
+                    position: fixed;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 999;
+                }
+
+                .alert-warning {
+                    position: fixed;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 999;
+                }
+            </style>
             <div class="container-fluid">
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">

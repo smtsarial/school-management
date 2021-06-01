@@ -83,6 +83,24 @@ session_start();
             </div>
         </aside>
         <div class="page-wrapper">
+        <style>
+                .alert-success {
+                    color: #00654c;
+                    background-color: #ccf3e9;
+                    border-color: #b8eee0;
+                    position: fixed;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 999;
+                }
+
+                .alert-warning {
+                    position: fixed;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 999;
+                }
+            </style>
             <div class="container-fluid">
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
@@ -156,8 +174,8 @@ session_start();
                                             <tr>
                                                 <th>Student ID</th>
                                                 <th>Students Name</th>
-                                                <th>Taken Course</th>
-                                                <th>GPA</th>
+                                                <th>Students Surname</th>
+                                                <th>Username</th>
                                             </tr>
                                         </thead>
 
@@ -169,16 +187,16 @@ session_start();
                                             if (!$conn) {
                                                 die("Connection failed " . mysqli_connect_error());
                                             } else {
-                                                $sql = "SELECT * FROM `reserach_group_members` INNER JOIN student ON student_id=student.id INNER JOIN register_course ON register_course.student_id=student.id INNER JOIN courses ON courses.id=register_course.course_id WHERE reserach_group_members.research_id=" . $_SESSION['user_id'];
+                                                $sql = "SELECT * FROM `reserach_group_members` INNER JOIN student ON student_id=student.id WHERE research_id=" . $_SESSION['user_id'];
                                                 $result = mysqli_query($conn, $sql);
 
                                                 if (mysqli_num_rows($result) > 0) {
                                                     while ($row = mysqli_fetch_assoc($result)) {
                                                         echo ('<tr>
                                                         <td>' . $row['student_id'] . '</td>
-                                                        <td>' . ucfirst($row['name']) . ' ' . ucfirst($row['surname']) . '</td>
-                                                        <td>' . ucfirst($row['course_name']) . '</td>
-                                                        <td>' . ucfirst($row['gpa']) . '</td>
+                                                        <td>' . ucfirst($row['name']) .'</td>
+                                                        <td>' . ucfirst($row['surname']) . '</td>
+                                                        <td>' . ucfirst($row['username']) . '</td>
                                                     </tr>');
                                                     }
                                                 } else {

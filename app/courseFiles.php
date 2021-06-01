@@ -92,6 +92,24 @@ session_start();
                     </div>
                 </div>
             </div>
+            <style>
+                .alert-success {
+                    color: #00654c;
+                    background-color: #ccf3e9;
+                    border-color: #b8eee0;
+                    position: fixed;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 999;
+                }
+
+                .alert-warning {
+                    position: fixed;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 999;
+                }
+            </style>
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">

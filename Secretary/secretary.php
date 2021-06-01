@@ -2,7 +2,7 @@
 session_start();
 ?>
 
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -86,7 +86,24 @@ session_start();
                         <h4 class="text-themecolor">Secretary Page</h4>
                     </div>
                 </div>
+                <style>
+                .alert-success {
+                    color: #00654c;
+                    background-color: #ccf3e9;
+                    border-color: #b8eee0;
+                    position: fixed;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 999;
+                }
 
+                .alert-warning {
+                    position: fixed;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 999;
+                }
+            </style>
 
 
                 <div class="col-lg-12">

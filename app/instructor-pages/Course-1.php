@@ -109,6 +109,24 @@ session_start();
                 padding-right: 25px;
             }
         </style>
+        <style>
+                .alert-success {
+                    color: #00654c;
+                    background-color: #ccf3e9;
+                    border-color: #b8eee0;
+                    position: fixed;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 999;
+                }
+
+                .alert-warning {
+                    position: fixed;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 999;
+                }
+            </style>
         <div class="page-wrapper">
             <div class="container-fluid">
                 <div class="row page-titles">

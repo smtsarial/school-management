@@ -90,7 +90,7 @@ $conn = mysqli_connect($server, $user, $password, $database);
             </div>
         </aside>
         <div class="page-wrapper">
-            <style>
+        <style>
                 .alert-success {
                     color: #00654c;
                     background-color: #ccf3e9;
@@ -98,12 +98,14 @@ $conn = mysqli_connect($server, $user, $password, $database);
                     position: fixed;
                     right: 0;
                     bottom: 0;
+                    z-index: 999;
                 }
 
                 .alert-warning {
                     position: fixed;
                     right: 0;
                     bottom: 0;
+                    z-index: 999;
                 }
             </style>
             <div class="container-fluid">
@@ -171,7 +173,7 @@ $conn = mysqli_connect($server, $user, $password, $database);
                                             die("Connection failed " . mysqli_connect_error());
                                         }
 
-                                        $sql = " SELECT research_groups.id,research_name,research_area,instructor_id,instructor_name,instructor_surname,instructor_email FROM research_groups INNER JOIN instructor ON instructor_id=instructor.id ";
+                                        $sql = " SELECT research_name,research_area,instructor_id,instructor_name,instructor_surname,instructor_email FROM research_groups INNER JOIN instructor ON instructor_id=instructor.id ";
                                         $result = mysqli_query($conn, $sql);
 
                                         if (mysqli_num_rows($result) > 0) {
@@ -226,6 +228,7 @@ $conn = mysqli_connect($server, $user, $password, $database);
                                     <tr>
                                         <th>ID</th>
                                         <th>Instructor Name</th>
+                                        <th>Instructor Surname</th>
                                         <th>Instructor Email</th>
                                         <th>Research Area</th>
                                     </tr>
@@ -240,14 +243,15 @@ $conn = mysqli_connect($server, $user, $password, $database);
                                         die("Connection failed " . mysqli_connect_error());
                                     }
 
-                                    $sql = " SELECT research_groups.id,research_name,research_area,instructor_id,instructor_name,instructor_surname,instructor_email FROM research_groups INNER JOIN instructor ON instructor_id=instructor.id ";
+                                    $sql = " SELECT research_name,research_area,instructor_id,instructor_name,instructor_surname,instructor_email FROM research_groups INNER JOIN instructor ON instructor_id=instructor.id ";
                                     $result = mysqli_query($conn, $sql);
 
                                     if (mysqli_num_rows($result) > 0) {
                                         while ($row = mysqli_fetch_assoc($result)) {
                                             echo "<tr>" .
-                                                "<td>" . ucfirst($row['id']) . "</td>" .
+                                                "<td>" . ucfirst($row['instructor_id']) . "</td>" .
                                                 "<td>" . ucfirst($row['instructor_name']) . "</td>" .
+                                                "<td>" . ucfirst($row['instructor_surname']) . "</td>" .
                                                 "<td>" . ucfirst($row['instructor_email']) . "</td>" .
                                                 "<td>" . ucfirst($row['research_area']) . "</td>" .
                                                 "</tr>";

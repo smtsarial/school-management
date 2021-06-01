@@ -86,21 +86,23 @@ session_start();
             </div>
         </aside>
         <style>
-.alert-success {
-    color: #00654c;
-    background-color: #ccf3e9;
-    border-color: #b8eee0;
-    position: fixed;
-    right: 0;
-    bottom: 0;
-}
-.alert-warning {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-}
+                .alert-success {
+                    color: #00654c;
+                    background-color: #ccf3e9;
+                    border-color: #b8eee0;
+                    position: fixed;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 999;
+                }
 
-</style>
+                .alert-warning {
+                    position: fixed;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 999;
+                }
+            </style>
         <div class="page-wrapper">
             <div class="container-fluid">
                 <div class="row page-titles">
@@ -135,7 +137,7 @@ session_start();
                                     '<div class="card card-body">' .
                                     '<div class="row align-items-center">' .
                                     ' <div class="col-md-4 col-lg-3 text-center">' .
-                                    ' <a href="app-contact-detail.php"><img src="files/images/users/1.jpg" alt="user" class="img-circle img-fluid"></a>' .
+                                    ' <a href="app-contact-detail.php"><img src="files/images/logo.png" alt="user" class="img-circle img-fluid"></a>' .
                                     ' </div>' .
                                     '<div class="col-md-8 col-lg-9">' .
                                     '<h3 class="box-title m-b-0">'.ucfirst($row['course_name']) .' -> '. $row['id']. '</h3><small>' .ucfirst($row['instructor_name']). ' '.ucfirst($row['instructor_surname']) .'  '. '</small>' .
